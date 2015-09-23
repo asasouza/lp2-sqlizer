@@ -1,8 +1,7 @@
 package com.edupsousa.sqlizer.sqlclauses;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
+import com.edupsousa.sqlizer.util.GetSetSql;
 import com.edupsousa.sqlizer.util.IncompleteQueryException;
 import com.edupsousa.sqlizer.util.QueryConditions;
 import com.edupsousa.sqlizer.util.QuerySetter;
@@ -22,8 +21,8 @@ public class SQLUpdate {
 	public String toString() {
 		if (querySet.size() == 0)
 			throw new IncompleteQueryException("Sua consulta UPDATE deve definir o valor de ao menos 1 campo.");
-		
-		String sql = "UPDATE " + this.table + " " + this.querySet.getSetSql();
+		querySet.setGetSqlInterface(new GetSetSql());
+		String sql = "UPDATE " + this.table + " " + this.querySet.getSql();
 		
 		if (!this.conditions.isEmpty())
 			sql += " " + this.conditions.getSql();
