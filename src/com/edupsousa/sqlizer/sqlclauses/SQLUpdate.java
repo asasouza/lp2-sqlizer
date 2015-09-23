@@ -10,7 +10,7 @@ import com.edupsousa.sqlizer.util.QuerySetter;
 public class SQLUpdate {
 
 	private String table;
-	private QuerySetter querySet = new QuerySetter();
+	private QuerySetter querySet = new QuerySetter(new GetSetSql());
 	private QueryConditions conditions = new QueryConditions();
 	
 	public SQLUpdate(String table) {
@@ -21,7 +21,6 @@ public class SQLUpdate {
 	public String toString() {
 		if (querySet.size() == 0)
 			throw new IncompleteQueryException("Sua consulta UPDATE deve definir o valor de ao menos 1 campo.");
-		querySet.setGetSqlInterface(new GetSetSql());
 		String sql = "UPDATE " + this.table + " " + this.querySet.getSql();
 		
 		if (!this.conditions.isEmpty())

@@ -9,7 +9,7 @@ import com.edupsousa.sqlizer.util.QuerySetter;
 public class SQLInsert {
 
 	private String into;
-	private QuerySetter querySet = new QuerySetter();
+	private QuerySetter querySet = new QuerySetter(new GetFieldValuesSql());
 	
 	public SQLInsert into(String table) {
 		this.into = table;
@@ -41,7 +41,6 @@ public class SQLInsert {
 	public String toString() {
 		if (into == null || querySet.size() == 0)
 			throw new IncompleteQueryException("A consulta SQLInsert deve especificar a tabela de destino e ao menos 1 campo");
-		querySet.setGetSqlInterface(new GetFieldValuesSql());
 		String sql = "INSERT INTO " + into + " " + querySet.getSql(); 
 		
 		return sql + ";";

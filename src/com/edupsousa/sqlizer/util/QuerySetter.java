@@ -10,6 +10,10 @@ public class QuerySetter {
 	private LinkedHashMap<String, String> fields = new LinkedHashMap<String, String>();
 	private GetSqlInterface gsi;
 
+	public QuerySetter(GetSqlInterface gsi){
+		this.gsi = gsi;
+	}
+	
 	public void set(String field, String value) {
 		this.setQuoted(field, value);
 	}
@@ -36,10 +40,6 @@ public class QuerySetter {
 	
 	private void setUnquoted(String field, String value) {
 		fields.put(field, value);
-	}
-
-	public void setGetSqlInterface(GetSqlInterface gsi){
-		this.gsi = gsi;
 	}
 	
 	public String getSql(){
